@@ -18,7 +18,8 @@ from ..vars import (ALLOWED_SCRAPYD_LOG_EXTENSIONS, APSCHEDULER_DATABASE_URI,
                     SCHEDULE_PATH, STATE_PAUSED, STATE_RUNNING, STATS_PATH, STRICT_NAME_PATTERN)
 from ..utils.scheduler import scheduler
 
-
+# print('flask::: ', flask.__version__)
+# print('SCRAPYDWEB_VERSIONz::: ', SCRAPYDWEB_VERSION)
 class BaseView(View):
     SCRAPYDWEB_VERSION = SCRAPYDWEB_VERSION
     LOGPARSER_VERSION = LOGPARSER_VERSION
@@ -69,8 +70,11 @@ class BaseView(View):
             self.logger.debug('request.args of %s\n%s', request.url, self.json_dumps(request.args))
         if request.form:
             self.logger.debug('request.form from %s\n%s', request.url, self.json_dumps(request.form))
-        if request.json:
-            self.logger.debug('request.json from %s\n%s', request.url, self.json_dumps(request.json))
+        try:
+            if request.json:
+                self.logger.debug('request.json from %s\n%s', request.url, self.json_dumps(request.json))
+        except Exception as err:
+            self.logger.exceptions(err)
         if request.files:
             self.logger.debug('request.files from %s\n\n    %s\n', request.url, request.files)
 
