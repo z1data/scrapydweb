@@ -74,7 +74,8 @@ class BaseView(View):
             if request.json:
                 self.logger.debug('request.json from %s\n%s', request.url, self.json_dumps(request.json))
         except Exception as err:
-            self.logger.exceptions(err)
+            self.logger.exception(err)
+            
         if request.files:
             self.logger.debug('request.files from %s\n\n    %s\n', request.url, request.files)
 
